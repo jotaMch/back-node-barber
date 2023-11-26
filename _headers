@@ -1,9 +1,0 @@
-/*
-  Access-Control-Allow-Origin: http://localhost:3000
-  Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE
-  Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
-/*
-  Access-Control-Allow-Origin: https://react-tail-wind-barber-up.vercel.app/
-  Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE
-  Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept
-
