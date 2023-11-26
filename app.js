@@ -6,21 +6,17 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser') 
 const cors = require('cors');
-
 const app = express() 
 app.use(cors());
 
 //config JSON response
 app.use(express.json())
-
 //config body parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
 
-
 //Models
 const User = require('./models/User')
-
 
 //public Route
 app.get('/', (req,res) => {
@@ -40,17 +36,15 @@ app.get("/user/:id", checkToken, async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(422).json({ msg: 'ID inválido' });
     }
-
     try {
         const user = await User.findById(id, '-password');
         if (!user) {
             return res.status(404).json({ msg: 'Usuário não encontrado' });
         }
-
         res.status(200).json({ user });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: 'Erro ao consultar o usuário' });
+        res.status(500).json({ msg: 'Erro ao  consultar o usuário' });
     }
 })
 
@@ -70,7 +64,6 @@ function checkToken(req, res, next) {
         res.status(400).json({msg: 'Token invalido!'})
     }
 }
-
 //register
 app.post('/auth/register', async(req,res) => {
     const {name, email, password, confirmpassword} = req.body
@@ -178,19 +171,26 @@ app.post("/auth/login", async (req, res) => {
         res.status(500).json({msg: 'Aconteceu um erro no servidor, tente novamente mais tarde!'})
     }
 })
+// Porta
+const PORT = process.env.PORT || 3000;
 
-//credecials
-const dbUser = process.env.DB_USER
-const dbPassword = process.env.DB_PASS
+// Credenciais
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASS;
 
-mongoose.connect(
-    `mongodb+srv://${encodeURIComponent(dbUser)}:${encodeURIComponent(dbPassword)}@cluster0.itipf2v.mongodb.net/test?retryWrites=true&w=majority`,
-    { useNewUrlParser: true, useUnifiedTopology: true }
-    )
+// String de Conexão MongoDB
+const mongoURI = `mongodb+srv://${encodeURIComponent(dbUser)}:${encodeURIComponent(dbPassword)}@cluster0.itipf2v.mongodb.net/?retryWrites=true&w=majority`;
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        app.listen(3000)
-        console.log("conectou ao banco")
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando na porta ${PORT}`);
+        });
+        console.log("Conectou ao banco de dados MongoDB Atlas");
     })
-    .catch((err) => console.log(err)
-)
+    .catch((err) => console.error(err));
+
+
+
+
 
