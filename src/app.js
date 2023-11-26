@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
 
 //Models
-const User = require('./models/User')
+const User = require('../models/User')
 
 //public Route
 app.get('/', (req,res) => {
