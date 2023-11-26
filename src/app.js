@@ -186,7 +186,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
         app.listen(PORT, () => {
             console.log(`Servidor rodando na porta ${PORT}`);
         });
-        console.log("Conectou ao banco de dados MongoDB Atlas");
+        console.log("Conectou ao banco de dados MongoDB Atlas [Conexão concluida]");
     })
     .catch((err) => console.error(err));
 
