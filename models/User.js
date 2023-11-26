@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('../src/node_modules/mongoose');
 
 const User = mongoose.model('User', {
     name: String,
