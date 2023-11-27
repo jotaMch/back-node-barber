@@ -24,7 +24,12 @@ app.get('/', (req,res) => {
         msg: "Bem vindo a minha API"
     })
 })
-
+//Route of test
+app.get('/test', (req,res) => {
+    res.status(200).json({
+        teste: "Esse é meu teste"
+    })
+})
 //Private Route
 app.get("/user/:id", checkToken, async (req, res) => {
     /* const id = req.params.id */
